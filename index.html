@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXMPrison</title>
+    <style>
+        body {
+            background-color: #222; /* Slightly darker background */
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #111;
+            padding: 1em;
+            text-align: center;
+        }
+
+        section {
+            padding: 2em;
+            margin: 2em 10%; /* Added padding from the title */
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1em;
+            margin: 1em;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            display: inline-block;
+            transition: background-color 0.3s, border-color 0.3s;
+            position: relative;
+        }
+
+        a:hover {
+            background-color: #00ff00;
+            border-color: #00ff00;
+        }
+
+        .vip-link {
+            background-color: lime;
+        }
+
+        .mvp-link {
+            background-color: gold;
+        }
+
+        .view-all-ranks {
+            background-color: #9933cc; /* Purple color for "View All Ranks" */
+        }
+
+        .discord-heading {
+            color: #7289da; /* Discord blue color for the heading */
+        }
+
+        .discord-link {
+            color: #fff;
+            background-color: #3498db; /* Light blue background for Discord links */
+            display: inline-block;
+            padding: 0.5em;
+            border-radius: 5px;
+            margin: 0.5em;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 1;
+            display: none;
+        }
+
+        .vip-link:hover .tooltip {
+            display: block;
+            bottom: 120%;
+            left: 0;
+        }
+
+        .mvp-link:hover .tooltip {
+            display: block;
+            bottom: 120%;
+            left: 0;
+        }
+
+        .note {
+            color: #3498db; /* Light blue color for the note */
+            margin-top: 1em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>EXMPrison</h1> <!-- Adjusted title -->
+        <p>Welcome to our thriving community!</p>
+    </header>
+
+    <section>
+        <h2>Server Information</h2>
+        <p>Server IP: <strong>exmprison.minehut.gg</strong></p>
+    </section>
+
+    <section>
+        <h2>Ranks</h2>
+        <p>Upgrade your gaming experience with our exclusive ranks:</p>
+        <a href="https://exmprison.tebex.io/package/5502268" target="_blank" class="vip-link">Upgrade to VIP
+            <div class="tooltip">
+                <p>VIP Perks:</p>
+                <ul>
+                    <li>/ec</li>
+                    <li>/warp VIP</li>
+                    <li>/dungeon</li>
+                    <li>1 Crate Key per week from VIP kit</li> <!-- Added perk -->
+                </ul>
+            </div>
+        </a>
+        <a href="https://exmprison.tebex.io/checkout/basket" target="_blank" class="mvp-link">Upgrade to MVP
+            <div class="tooltip">
+                <p>MVP Perks:</p>
+                <ul>
+                    <li>/ec</li>
+                    <li>/warp VIP</li>
+                    <li>/dungeon</li>
+                    <li>/warp MVP</li>
+                    <li>1 MVP and 1 VIP Crate Key per week from kits</li> <!-- Added perk -->
+                </ul>
+            </div>
+        </a>
+        <a href="https://exmprison.tebex.io/category/ranks" target="_blank" class="view-all-ranks">View All Ranks</a>
+    </section>
+
+    <section>
+        <h2 class="discord-heading">Discord</h2>
+        <p>Join our Discord server to stay connected:</p>
+        <p>Discord Server: <a href="https://discord.gg/8XBGTtJyC9" target="_blank" class="discord-link">Click to join</a></p>
+        <p>Support Server: <a href="https://discord.gg/aQCg8wjZuc" target="_blank" class="discord-link">Click for support</a></p>
+        <p class="note">Note: The support server is only for if you got banned from the main server.</p>
+    </section>
+
+    <script>
+        // Close tooltips on click outside
+        document.addEventListener('click', function (e) {
+            if (!e.target.classList.contains('vip-link') && !e.target.classList.contains('mvp-link')) {
+                var tooltips = document.querySelectorAll('.tooltip');
+                tooltips.forEach(function (tooltip) {
+                    tooltip.style.display = 'none';
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>
