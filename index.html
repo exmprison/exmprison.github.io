@@ -116,6 +116,10 @@
             display: none;
         }
 
+        .tooltip.active {
+            display: block;
+        }
+
         .vip-link:hover .tooltip,
         .mvp-link:hover .tooltip {
             display: block;
@@ -273,21 +277,30 @@
         <h2>Announcements</h2>
         <p>@everyone I am happy to announce that the server will be releasing on 1-21-2024. This is a Sunday, and it is at 1:30 EST. Does this time work with everyone?</p>
         <h3>APPLICATIONS</h3>
-        <p>When you open up a staff application please state if you are applying for builder or staff. Thanks for reading.</p>
+        <p>When you open up a staff application, please state if you are applying for builder or staff. Thanks for reading.</p>
         <p>@everyone</p>
         <h3>BETA TESTING</h3>
         <p>We will be doing some beta testing at 3:20 EST/UTC-4 (<t:1705177200:R>)</p>
-        <p>Beta testers will get a special role. All your progress from beta testing will not be released on the main server and stats will be reset. From the beta role you will get a beta warp with some stuff! Thanks for reading</p>
+        <p>Beta testers will get a special role. All your progress from beta testing will not be released on the main server, and stats will be reset. From the beta role, you will get a beta warp with some stuff! Thanks for reading</p>
         <p>IP: ExMPrison.minehut.gg</p>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('mouseover', function (e) {
+                if (!e.target.classList.contains('vip-link') && !e.target.classList.contains('mvp-link')) {
+                    var tooltips = document.querySelectorAll('.tooltip');
+                    tooltips.forEach(function (tooltip) {
+                        tooltip.classList.remove('active');
+                    });
+                }
+            });
+
             document.addEventListener('click', function (e) {
                 if (!e.target.classList.contains('vip-link') && !e.target.classList.contains('mvp-link')) {
                     var tooltips = document.querySelectorAll('.tooltip');
                     tooltips.forEach(function (tooltip) {
-                        tooltip.style.display = 'none';
+                        tooltip.classList.remove('active');
                     });
                 }
             });
@@ -304,6 +317,11 @@
                 // Panel is closed, open it
                 panel.style.right = '0';
             }
+        }
+
+        function toggleTooltip(element) {
+            var tooltip = element.querySelector('.tooltip');
+            tooltip.classList.toggle('active');
         }
     </script>
 
