@@ -1,337 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EXMPrison</title>
-    <style>
-        body {
-            background-color: #222; /* Darker background */
-            color: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faster Doodle Animation</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #fff; /* White background color */
+    }
 
-        header {
-            background-color: #000; /* Updated to black */
-            padding: 1em;
-            text-align: center;
-        }
-
-        section {
-            padding: 2em;
-            margin: 2em 10%;
-        }
-
-        a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8em; /* Slightly smaller padding */
-            margin: 1em;
-            border: 2px solid #fff;
-            border-radius: 10px;
-            display: inline-block;
-            transition: background-color 0.3s, border-color 0.3s;
-            position: relative;
-            font-size: 1.1em;
-        }
-
-        a:hover {
-            background-color: #2074a0;
-            border-color: #2074a0;
-        }
-
-        .vip-link,
-        .mvp-link,
-        .view-all-ranks {
-            width: 140px; /* Slightly smaller width */
-            position: relative;
-        }
-
-        .vip-link {
-            background-color: #4caf50; /* Green */
-        }
-
-        .vip-link:hover {
-            background-color: #45a049; /* Darker Green on Hover */
-            border-color: #45a049;
-        }
-
-        .mvp-link {
-            background-color: #ffcc00; /* Yellow */
-        }
-
-        .mvp-link:hover {
-            background-color: #e6b800; /* Darker Yellow on Hover */
-            border-color: #e6b800;
-        }
-
-        .view-all-ranks {
-            background-color: #9933cc;
-        }
-
-        .view-all-ranks:hover {
-            background-color: #8c2fba; /* Darker Purple on Hover */
-            border-color: #8c2fba;
-        }
-
-        .note {
-            color: #3498db;
-            margin-top: 1em;
-        }
-
-        .note p {
-            font-size: 0.8em;
-            margin: 0;
-        }
-
-        .discord-heading {
-            color: #7289da;
-            font-size: 1.5em;
-        }
-
-        .discord-link {
-            color: #fff;
-            background-color: #3498db;
-            display: inline-block;
-            padding: 0.5em;
-            border-radius: 5px;
-            margin: 0.5em;
-        }
-
-        .discord-link:hover {
-            background-color: #2980b9; /* Darker Blue on Hover */
-            border-color: #2980b9;
-        }
-
-        .tooltip {
-            position: absolute;
-            background-color: #333;
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            z-index: 1;
-            display: none;
-        }
-
-        .tooltip.active {
-            display: block;
-        }
-
-        .vip-link:hover .tooltip,
-        .mvp-link:hover .tooltip {
-            display: block;
-            bottom: 120%;
-            left: 0;
-        }
-
-        h1, h2, p {
-            color: #fff;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            margin-bottom: 5px;
-        }
-
-        /* Staff and Announcements Button Styling */
-        nav {
-            text-align: center;
-            margin-top: 1em;
-        }
-
-        nav button {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8em; /* Slightly smaller padding */
-            margin: 0 1em;
-            background-color: #4a90e2;
-            border: 2px solid #4a90e2;
-            border-radius: 10px;
-            display: inline-block;
-            transition: background-color 0.3s, border-color 0.3s;
-            font-size: 1em;
-            cursor: pointer;
-            width: 150px; /* Set button width */
-        }
-
-        nav button:hover {
-            background-color: #3663a3;
-            border-color: #3663a3;
-        }
-
-        /* Side Panel Styling */
-        .side-panel {
-            position: fixed;
-            top: 0;
-            right: -300px; /* Start off-screen */
-            width: 300px;
-            height: 100%;
-            background-color: #333;
-            padding: 20px;
-            color: #fff;
-            transition: 0.5s;
-            overflow-y: scroll;
-        }
-
-        .side-panel a {
-            color: #fff;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .side-panel button {
-            background-color: #4a90e2;
-            color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%; /* Full width */
-        }
-
-        .side-panel button:hover {
-            background-color: #3663a3;
-        }
-    </style>
+    canvas {
+      display: block;
+    }
+  </style>
 </head>
-
 <body>
+  <canvas id="doodleCanvas"></canvas>
 
-    <header>
-        <h1>EXMPrison</h1>
-        <p>Welcome to our thriving community!</p>
-    </header>
+  <script>
+    const canvas = document.getElementById('doodleCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-    <nav>
-        <button onclick="togglePanel('staffPanel')">Staff</button>
-        <button onclick="togglePanel('announcementsPanel')">Announcements</button>
-    </nav>
+    const fontSize = 8;
+    ctx.font = `${fontSize}px Arial`;
 
-    <section>
-        <h2>Server Information</h2>
-        <p>Server IP: <strong>exmprison.minehut.gg</strong></p>
-    </section>
+    const doodles = [];
 
-    <section>
-        <h2>Ranks</h2>
-        <p>Upgrade your gaming experience with our exclusive ranks:</p>
-        <a href="https://exmprison.tebex.io/package/5502268" target="_blank" class="vip-link">Upgrade to VIP
-            <div class="tooltip">
-                <p>VIP Perks:</p>
-                <ul>
-                    <li>/ec</li>
-                    <li>/warp VIP</li>
-                    <li>/dungeon</li>
-                    <li>1 Crate Key per week from VIP kit</li>
-                </ul>
-            </div>
-        </a>
-        <a href="https://exmprison.tebex.io/checkout/basket" target="_blank" class="mvp-link">Upgrade to MVP
-            <div class="tooltip">
-                <p>MVP Perks:</p>
-                <ul>
-                    <li>/ec</li>
-                    <li>/warp VIP</li>
-                    <li>/dungeon</li>
-                    <li>/warp MVP</li>
-                    <li>1 MVP and 1 VIP Crate Key per week from kits</li>
-                </ul>
-            </div>
-        </a>
-        <a href="https://exmprison.tebex.io/category/ranks" target="_blank" class="view-all-ranks">View All Ranks</a>
-        <p class="note">Note: There is a bug in our code. If perks are not applied, please refresh the page. Scan over the green and yellow buttons.</p>
-    </section>
+    function drawDoodle(x, y, text) {
+      ctx.fillStyle = '#000'; // Black color for the doodle
+      ctx.fillText(text, x, y);
+    }
 
-    <section>
-        <h2 class="discord-heading">Discord</h2>
-        <p>Join our Discord server to stay connected:</p>
-        <p>Discord Server: <a href="https://discord.gg/8XBGTtJyC9" target="_blank" class="discord-link">Click to join</a></p>
-        <p>Support Server: <a href="https://discord.gg/aQCg8wjZuc" target="_blank" class="discord-link">Click for support</a></p>
-        <p class="note">Note: The support server is only for if you got banned from the main server.</p>
-    </section>
+    function generateRandomText() {
+      const randomText = Math.random().toString(36).substring(2, 8);
+      return randomText;
+    }
 
-    <!-- Staff Side Panel -->
-    <div id="staffPanel" class="side-panel">
-        <button onclick="togglePanel('staffPanel')">Close</button>
-        <h2>Staff</h2>
-        <p>RocraftLive</p>
-        <p>Henry</p>
-        <p>Frosty_</p>
-        <p>darkrelicer</p>
-        <p>nuggetnuggle</p>
-    </div>
+    function animateDoodle() {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      const text = generateRandomText();
 
-    <!-- Announcements Side Panel -->
-    <div id="announcementsPanel" class="side-panel">
-        <button onclick="togglePanel('announcementsPanel')">Close</button>
-        <h2>Announcements</h2>
+      drawDoodle(x, y, text);
+      doodles.push({ x, y, text });
 
-        <!-- New staff application announcement -->
-        <p>Good morning. I am opening staff apps. One of the requirements is that you have a certain amount of playtime, but as the server has not started, you will just be a trainee until you get the playtime, and skills required to put on the main team. Apply in <#tickets>. I will most likely be the one asking you questions. Lastly, I want to warn you that we may give you a quiz, so do you apply if you are not used to the Discord server.</p>
-
-        <!-- Previous Announcements -->
-        <h2>Announcements</h2>
-        <p>@everyone I am happy to announce that the server will be releasing on 1-21-2024. This is a Sunday, and it is at 1:30 EST. Does this time work with everyone?</p>
-        <h3>APPLICATIONS</h3>
-        <p>When you open up a staff application, please state if you are applying for builder or staff. Thanks for reading.</p>
-        <p>@everyone</p>
-        <h3>BETA TESTING</h3>
-        <p>We will be doing some beta testing at 3:20 EST/UTC-4 (<t:1705177200:R>)</p>
-        <p>Beta testers will get a special role. All your progress from beta testing will not be released on the main server, and stats will be reset. From the beta role, you will get a beta warp with some stuff! Thanks for reading</p>
-        <p>IP: ExMPrison.minehut.gg</p>
-    </div>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.addEventListener('mouseover', function (e) {
-                if (!e.target.classList.contains('vip-link') && !e.target.classList.contains('mvp-link')) {
-                    var tooltips = document.querySelectorAll('.tooltip');
-                    tooltips.forEach(function (tooltip) {
-                        tooltip.classList.remove('active');
-                    });
-                }
-            });
-
-            document.addEventListener('click', function (e) {
-                if (!e.target.classList.contains('vip-link') && !e.target.classList.contains('mvp-link')) {
-                    var tooltips = document.querySelectorAll('.tooltip');
-                    tooltips.forEach(function (tooltip) {
-                        tooltip.classList.remove('active');
-                    });
-                }
-            });
-        });
-
-        function togglePanel(panelId) {
-            var panel = document.getElementById(panelId);
-            var currentRight = parseInt(window.getComputedStyle(panel).right);
-
-            if (currentRight === 0) {
-                // Panel is open, close it
-                panel.style.right = '-300px';
-            } else {
-                // Panel is closed, open it
-                panel.style.right = '0';
-            }
+      // Remove doodles that are off-screen to prevent memory usage
+      doodles.forEach((doodle, index) => {
+        if (doodle.x > canvas.width || doodle.y > canvas.height) {
+          doodles.splice(index, 1);
         }
+      });
 
-        function toggleTooltip(element) {
-            var tooltip = element.querySelector('.tooltip');
-            tooltip.classList.toggle('active');
-        }
-    </script>
+      requestAnimationFrame(animateDoodle);
+    }
 
+    setInterval(() => {
+      animateDoodle();
+    }, 100); // Update every 100 milliseconds for faster loading
+  </script>
 </body>
-
 </html>
