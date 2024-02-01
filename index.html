@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faster Doodle Animation</title>
+  <title>Colorful Particle Animation</title>
   <style>
     body {
       margin: 0;
@@ -17,56 +17,106 @@
   </style>
 </head>
 <body>
-  <canvas id="doodleCanvas"></canvas>
+  <canvas id="particleCanvas"></canvas>
 
   <script>
-    const canvas = document.getElementById('doodleCanvas');
+    const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const fontSize = 8;
-    ctx.font = `${fontSize}px Arial`;
+    const particleSize = 2;
+    const particles = [];
 
-    let doodles = [];
+    class Particle {
+      constructor(x, y, speedX, speedY, color) {
+        this.x = x;
+        this.y = y;
+        this.speedX = speedX;
+        this.speedY = speedY;
+        this.color = color;
+      }
 
-    function drawDoodle(x, y, text) {
-      ctx.fillStyle = '#000'; // Black color for the doodle
-      ctx.fillText(text, x, y);
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, particleSize, particleSize);
+      }
+
+      move() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Wrap particles around the screen
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
     }
 
-    function generateRandomText() {
-      const randomText = Math.random().toString(36).substring(2, 8);
-      return randomText;
+    function generateRandomParticles() {
+      const newParticles = [];
+
+      for (let i = 0; i < 10; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const speedX = (Math.random() - 0.5) * 5 * 1.5; // 1.5 times faster
+        const speedY = (Math.random() - 0.5) * 5 * 1.5; // 1.5 times faster
+        const color = getRandomColor();
+
+        newParticles.push(new Particle(x, y, speedX, speedY, color));
+      }
+
+      return newParticles;
     }
 
-    function animateDoodle() {
-      const x = Math.random() * canvas.width;
-      const y = Math.random() * canvas.height;
-      const text = generateRandomText();
+    function getRandomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
 
-      drawDoodle(x, y, text);
-      doodles.push({ x, y, text });
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Remove doodles that are off-screen to prevent memory usage
-      doodles.forEach((doodle, index) => {
-        if (doodle.x > canvas.width || doodle.y > canvas.height) {
-          doodles.splice(index, 1);
-        }
+      particles.forEach(particle => {
+        particle.draw();
+        particle.move();
       });
     }
 
-    function doubleDoodles() {
-      doodles = [...doodles, ...doodles];
+    function doubleParticles() {
+      particles.push(...generateRandomParticles());
     }
 
-    setInterval(() => {
-      animateDoodle();
-    }, 1); // Update every 1 millisecond for faster loading
+    // Function to perform the calculation
+    function performCalculation(number) {
+      for (let i = 0; i < 9999999999999999999; i++) {
+        while (number !== 1) {
+          if (number % 2 === 0) {
+            number /= 2;
+          } else {
+            number = number * 3 + 1;
+          }
+        }
+        console.log(`Calculation ${i + 1} completed. Result: ${number}`);
+        number = 777513147237; // Reset to the starting number
+      }
+    }
 
-    setInterval(() => {
-      doubleDoodles();
-    }, 1000); // Double the number of doodles every second
+    // Perform the calculations and start the animation when the page loads
+    window.onload = function() {
+      performCalculation(777513147237);
+      particles.push(...generateRandomParticles());
+
+      setInterval(() => {
+        animateParticles();
+        doubleParticles(); // Double particles continuously
+      }, 11); // Update every 11 milliseconds for faster animation
+    };
   </script>
 </body>
 </html>
