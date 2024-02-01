@@ -57,7 +57,7 @@
     function generateRandomParticles() {
       const newParticles = [];
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) { // Load 100 times faster
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         const speedX = (Math.random() - 0.5) * 5 * 1.5; // 1.5 times faster
@@ -92,30 +92,14 @@
       particles.push(...generateRandomParticles());
     }
 
-    // Function to perform the calculation
-    function performCalculation(number) {
-      for (let i = 0; i < 9999999999999999999; i++) {
-        while (number !== 1) {
-          if (number % 2 === 0) {
-            number /= 2;
-          } else {
-            number = number * 3 + 1;
-          }
-        }
-        console.log(`Calculation ${i + 1} completed. Result: ${number}`);
-        number = 777513147237; // Reset to the starting number
-      }
-    }
-
     // Perform the calculations and start the animation when the page loads
     window.onload = function() {
-      performCalculation(777513147237);
       particles.push(...generateRandomParticles());
 
       setInterval(() => {
         animateParticles();
         doubleParticles(); // Double particles continuously
-      }, 11); // Update every 11 milliseconds for faster animation
+      }, 100); // Update every 100 milliseconds for faster animation
     };
   </script>
 </body>
