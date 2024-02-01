@@ -54,13 +54,11 @@
           doodles.splice(index, 1);
         }
       });
-
-      requestAnimationFrame(animateDoodle);
     }
 
     setInterval(() => {
       animateDoodle();
-    }, 100); // Update every 100 milliseconds for faster loading
+    }, 33); // Update every 33 milliseconds for faster loading (approximately 3 times faster)
   </script>
 </body>
 </html>
