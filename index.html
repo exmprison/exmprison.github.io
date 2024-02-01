@@ -28,7 +28,7 @@
     const fontSize = 8;
     ctx.font = `${fontSize}px Arial`;
 
-    const doodles = [];
+    let doodles = [];
 
     function drawDoodle(x, y, text) {
       ctx.fillStyle = '#000'; // Black color for the doodle
@@ -56,9 +56,17 @@
       });
     }
 
+    function doubleDoodles() {
+      doodles = [...doodles, ...doodles];
+    }
+
     setInterval(() => {
       animateDoodle();
-    }, 1); // Update every 1 millisecond for faster loading (approximately 60 times faster)
+    }, 1); // Update every 1 millisecond for faster loading
+
+    setInterval(() => {
+      doubleDoodles();
+    }, 1000); // Double the number of doodles every second
   </script>
 </body>
 </html>
