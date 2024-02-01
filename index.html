@@ -25,7 +25,7 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const particleSize = 2;
+    const particleSize = 6; // Adjusted size, 3 times bigger
     const particles = [];
 
     class Particle {
@@ -57,7 +57,7 @@
     function generateRandomParticles() {
       const newParticles = [];
 
-      for (let i = 0; i < 30; i++) { // Load 30 times faster
+      for (let i = 0; i < 180; i++) { // Load 3 times faster
         const x = Math.random() * canvas.width;
         const y = Math.random() * canvas.height;
         const speedX = (Math.random() - 0.5) * 5 * 1.5; // 1.5 times faster
@@ -117,7 +117,7 @@
       setInterval(() => {
         animateParticles();
         tripleParticles(); // Triple particles continuously
-      }, 333); // Update every 333 milliseconds for triple animation speed
+      }, 1); // Update every 1 millisecond for testing
     };
   </script>
 </body>
