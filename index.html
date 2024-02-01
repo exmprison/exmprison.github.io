@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Colorful Particle Animation</title>
+  <title>Colorful Particle and Text Animation</title>
   <style>
     body {
       margin: 0;
@@ -14,10 +14,19 @@
     canvas {
       display: block;
     }
+
+    #displayText {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+    }
   </style>
 </head>
 <body>
   <canvas id="particleCanvas"></canvas>
+  <div id="displayText">This is some text!</div>
 
   <script>
     const canvas = document.getElementById('particleCanvas');
@@ -27,6 +36,7 @@
 
     const particleSize = 6; // Adjusted size, 3 times bigger
     const particles = [];
+    const displayText = document.getElementById('displayText');
 
     class Particle {
       constructor(x, y, speedX, speedY, color) {
@@ -88,10 +98,18 @@
       });
     }
 
+    function updateText() {
+      displayText.textContent = `This is some text! Time: ${new Date().toLocaleTimeString()}`;
+    }
+
     function tripleParticles() {
       particles.push(...generateRandomParticles());
       particles.push(...generateRandomParticles());
       particles.push(...generateRandomParticles());
+    }
+
+    function tripleText() {
+      displayText.textContent += ' Tripled!';
     }
 
     // Function to perform the calculation
@@ -117,7 +135,12 @@
       setInterval(() => {
         animateParticles();
         tripleParticles(); // Triple particles continuously
-      }, 1); // Update every 1 millisecond for testing
+      }, 1); // Update every 1 millisecond for particles
+
+      setInterval(() => {
+        updateText();
+        tripleText(); // Triple text every 0.2 seconds
+      }, 200); // Update every 0.2 seconds for text
     };
   </script>
 </body>
