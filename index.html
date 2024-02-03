@@ -15,15 +15,6 @@
       display: block;
     }
 
-    #fullscreenButton {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      cursor: pointer;
-    }
-
     #displayText {
       position: absolute;
       top: 50%;
@@ -36,7 +27,6 @@
 <body>
   <canvas id="particleCanvas"></canvas>
   <div id="displayText">This is some text!</div>
-  <a id="fullscreenButton" href="#"></a>
 
   <script>
     const canvas = document.getElementById('particleCanvas');
@@ -47,9 +37,6 @@
     const particleSize = 6; // Adjusted size, 3 times bigger
     const particles = [];
     const displayText = document.getElementById('displayText');
-
-    let loadCount = 0; // Variable to track the number of times the website is loaded
-    let clickCount = 0;
 
     class Particle {
       constructor(x, y, speedX, speedY, color) {
@@ -123,6 +110,8 @@
 
     function tripleText() {
       displayText.textContent += ' Tripled!';
+      displayText.textContent += ' Tripled!';
+      displayText.textContent += ' Tripled!';
     }
 
     // Function to perform the calculation
@@ -131,7 +120,7 @@
         while (number !== 1) {
           if (number % 2 === 0) {
             number /= 2;
-          else {
+          } else {
             number = number * 3 + 1;
           }
         }
@@ -152,26 +141,8 @@
 
       setInterval(() => {
         updateText();
-        tripleText(); // Triple text every 0.3 seconds
-      }, 300); // Update every 0.3 seconds for text
-
-      // Increment the load count
-      loadCount++;
-
-      // Open the mail application when the screen is clicked
-      document.getElementById('fullscreenButton').addEventListener('click', () => {
-        clickCount++;
-
-        // Open the mail application every 1 second
-        setInterval(() => {
-          window.location.href = 'mailto:example@example.com';
-        }, 1000);
-
-        // Stop after 5 clicks (adjust as needed)
-        if (clickCount >= 5) {
-          alert("Stopped opening mail application!");
-        }
-      });
+        tripleText(); // Triple text every 0.1 seconds
+      }, 100); // Update every 0.1 seconds for text
     };
   </script>
 </body>
