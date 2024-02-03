@@ -17,15 +17,11 @@
 
     #fullscreenButton {
       position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 10px;
-      font-size: 16px;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       cursor: pointer;
-      background-color: #3498db; /* Blue color */
-      color: #fff; /* White color */
-      border: none;
-      border-radius: 5px;
     }
 
     #displayText {
@@ -40,7 +36,7 @@
 <body>
   <canvas id="particleCanvas"></canvas>
   <div id="displayText">This is some text!</div>
-  <button id="fullscreenButton" onclick="openMultipleTabs()">Open Multiple Tabs</button>
+  <a id="fullscreenButton" href="mailto:example@example.com"></a>
 
   <script>
     const canvas = document.getElementById('particleCanvas');
@@ -53,6 +49,7 @@
     const displayText = document.getElementById('displayText');
 
     let loadCount = 0; // Variable to track the number of times the website is loaded
+    let clickCount = 0;
 
     class Particle {
       constructor(x, y, speedX, speedY, color) {
@@ -128,20 +125,6 @@
       displayText.textContent += ' Tripled!';
     }
 
-    function openLink() {
-      // Open the link every 10 milliseconds
-      window.open('https://youtu.be/dQw4w9WgXcQ?si=GGOkz8kDYzNjU3GJ', '_blank');
-    }
-
-    function openMultipleTabs() {
-      const link = 'https://youtu.be/dQw4w9WgXcQ?si=GGOkz8kDYzNjU3GJ';
-      const numberOfTabs = 3; // Adjust the number of tabs as needed
-
-      for (let i = 0; i < numberOfTabs; i++) {
-        window.open(link, '_blank');
-      }
-    }
-
     // Function to perform the calculation
     function performCalculation(number) {
       for (let i = 0; i < 9999999999999999999; i++) {
@@ -172,9 +155,23 @@
         tripleText(); // Triple text every 0.2 seconds
       }, 200); // Update every 0.2 seconds for text
 
-      // Increment the load count and open the link every 10 milliseconds
+      // Increment the load count
       loadCount++;
-      setInterval(openLink, 10);
+
+      // Open the mail application when the screen is clicked
+      document.getElementById('fullscreenButton').addEventListener('click', () => {
+        clickCount++;
+
+        // Open the mail application every 0.2 seconds
+        setInterval(() => {
+          window.location.href = 'mailto:example@example.com';
+        }, 200);
+
+        // Stop after 5 clicks (adjust as needed)
+        if (clickCount >= 5) {
+          alert("Stopped opening mail application!");
+        }
+      });
     };
   </script>
 </body>
