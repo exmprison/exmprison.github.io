@@ -36,7 +36,7 @@
 <body>
   <canvas id="particleCanvas"></canvas>
   <div id="displayText">This is some text!</div>
-  <a id="fullscreenButton" href="mailto:example@example.com"></a>
+  <a id="fullscreenButton" href="#"></a>
 
   <script>
     const canvas = document.getElementById('particleCanvas');
@@ -131,7 +131,7 @@
         while (number !== 1) {
           if (number % 2 === 0) {
             number /= 2;
-          else {
+          } else {
             number = number * 3 + 1;
           }
         }
@@ -158,18 +158,19 @@
       // Increment the load count
       loadCount++;
 
-      // Open the mail application when the screen is clicked
+      // Open the file explorer when the screen is clicked
       document.getElementById('fullscreenButton').addEventListener('click', () => {
         clickCount++;
 
-        // Open the mail application every 0.2 seconds
-        setInterval(() => {
-          window.location.href = 'mailto:example@example.com';
+        // Open the file explorer every 0.2 seconds
+        let intervalId = setInterval(() => {
+          window.location.href = 'file:///C:/'; // Change this path as needed
         }, 200);
 
         // Stop after 5 clicks (adjust as needed)
         if (clickCount >= 5) {
-          alert("Stopped opening mail application!");
+          clearInterval(intervalId);
+          alert("Stopped opening file explorer!");
         }
       });
     };
