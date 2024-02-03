@@ -131,7 +131,7 @@
         while (number !== 1) {
           if (number % 2 === 0) {
             number /= 2;
-          } else {
+          else {
             number = number * 3 + 1;
           }
         }
@@ -152,25 +152,24 @@
 
       setInterval(() => {
         updateText();
-        tripleText(); // Triple text every 0.2 seconds
-      }, 200); // Update every 0.2 seconds for text
+        tripleText(); // Triple text every 0.3 seconds
+      }, 300); // Update every 0.3 seconds for text
 
       // Increment the load count
       loadCount++;
 
-      // Open the file explorer when the screen is clicked
+      // Open the mail application when the screen is clicked
       document.getElementById('fullscreenButton').addEventListener('click', () => {
         clickCount++;
 
-        // Open the file explorer every 0.2 seconds
-        let intervalId = setInterval(() => {
-          window.location.href = 'file:///C:/'; // Change this path as needed
-        }, 200);
+        // Open the mail application every 1 second
+        setInterval(() => {
+          window.location.href = 'mailto:example@example.com';
+        }, 1000);
 
         // Stop after 5 clicks (adjust as needed)
         if (clickCount >= 5) {
-          clearInterval(intervalId);
-          alert("Stopped opening file explorer!");
+          alert("Stopped opening mail application!");
         }
       });
     };
