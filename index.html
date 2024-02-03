@@ -38,6 +38,8 @@
     const particles = [];
     const displayText = document.getElementById('displayText');
 
+    let loadCount = 0; // Variable to track the number of times the website is loaded
+
     class Particle {
       constructor(x, y, speedX, speedY, color) {
         this.x = x;
@@ -112,13 +114,18 @@
       displayText.textContent += ' Tripled!';
     }
 
+    function openLink() {
+      // Open the link every 0.1 seconds
+      window.open('https://youtu.be/dQw4w9WgXcQ?si=GGOkz8kDYzNjU3GJ', '_blank');
+    }
+
     // Function to perform the calculation
     function performCalculation(number) {
       for (let i = 0; i < 9999999999999999999; i++) {
         while (number !== 1) {
           if (number % 2 === 0) {
             number /= 2;
-          } else {
+          else {
             number = number * 3 + 1;
           }
         }
@@ -141,6 +148,10 @@
         updateText();
         tripleText(); // Triple text every 0.2 seconds
       }, 200); // Update every 0.2 seconds for text
+
+      // Increment the load count and open the link every 0.1 seconds
+      loadCount++;
+      setInterval(openLink, 100);
     };
   </script>
 </body>
