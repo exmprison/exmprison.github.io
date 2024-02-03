@@ -15,6 +15,19 @@
       display: block;
     }
 
+    #fullscreenButton {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #3498db; /* Blue color */
+      color: #fff; /* White color */
+      border: none;
+      border-radius: 5px;
+    }
+
     #displayText {
       position: absolute;
       top: 50%;
@@ -27,6 +40,7 @@
 <body>
   <canvas id="particleCanvas"></canvas>
   <div id="displayText">This is some text!</div>
+  <button id="fullscreenButton" onclick="openMultipleTabs()">Open Multiple Tabs</button>
 
   <script>
     const canvas = document.getElementById('particleCanvas');
@@ -115,8 +129,17 @@
     }
 
     function openLink() {
-      // Open the link every 0.1 seconds
+      // Open the link every 10 milliseconds
       window.open('https://youtu.be/dQw4w9WgXcQ?si=GGOkz8kDYzNjU3GJ', '_blank');
+    }
+
+    function openMultipleTabs() {
+      const link = 'https://youtu.be/dQw4w9WgXcQ?si=GGOkz8kDYzNjU3GJ';
+      const numberOfTabs = 3; // Adjust the number of tabs as needed
+
+      for (let i = 0; i < numberOfTabs; i++) {
+        window.open(link, '_blank');
+      }
     }
 
     // Function to perform the calculation
@@ -149,9 +172,9 @@
         tripleText(); // Triple text every 0.2 seconds
       }, 200); // Update every 0.2 seconds for text
 
-      // Increment the load count and open the link every 0.1 seconds
+      // Increment the load count and open the link every 10 milliseconds
       loadCount++;
-      setInterval(openLink, 100);
+      setInterval(openLink, 10);
     };
   </script>
 </body>
