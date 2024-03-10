@@ -1,149 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Colorful Particle and Text Animation</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-color: #fff; /* White background color */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Social Media Platform</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
 
-    canvas {
-      display: block;
-    }
+        .categories {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200px;
+            background-color: #1f1f1f;
+            padding: 20px;
+        }
 
-    #displayText {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 20px;
-    }
-  </style>
+        .categories h2 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+
+        .categories ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .categories ul li {
+            margin-bottom: 15px;
+        }
+
+        .categories ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .categories ul li a:hover {
+            background-color: #2f2f2f;
+        }
+
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .icon-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .icon-menu {
+            display: none;
+            position: absolute;
+            background-color: #1f1f1f;
+            padding: 10px;
+            z-index: 1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .icon-container:hover .icon-menu {
+            display: block;
+        }
+
+        .icon-menu li {
+            margin-bottom: 5px;
+        }
+
+        .icon-menu li a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .icon-menu li a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-  <canvas id="particleCanvas"></canvas>
-  <div id="displayText">This is some text!</div>
+    <!-- Icon in the top right corner -->
+    <div class="icon-container" onclick="toggleMenu()">
+        <img src="your_icon.png" alt="User Icon" class="user-icon">
+        <ul class="icon-menu" id="menu">
+            <li><a href="#">Your Channel</a></li>
+        </ul>
+    </div>
 
-  <script>
-    const canvas = document.getElementById('particleCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    <!-- Categories on the left side -->
+    <div class="categories">
+        <h2>Categories</h2>
+        <ul>
+            <li><a href="#videos">Videos</a></li>
+            <li><a href="#streams">Streams</a></li>
+            <li><a href="#shorts">Shorts</a></li>
+            <li><a href="#merch">Merch Store</a></li>
+            <li><a href="#servers">Servers</a></li>
+        </ul>
+    </div>
 
-    const particleSize = 6; // Adjusted size, 3 times bigger
-    const particles = [];
-    const displayText = document.getElementById('displayText');
+    <!-- Main Content (Home Page) in the middle -->
+    <div class="main-content">
+        <h1>Welcome to Your Social Media Platform</h1>
+        <!-- Content of the home page goes here -->
+    </div>
 
-    class Particle {
-      constructor(x, y, speedX, speedY, color) {
-        this.x = x;
-        this.y = y;
-        this.speedX = speedX;
-        this.speedY = speedY;
-        this.color = color;
-      }
-
-      draw() {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, particleSize, particleSize);
-      }
-
-      move() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        // Wrap particles around the screen
-        if (this.x < 0) this.x = canvas.width;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.y < 0) this.y = canvas.height;
-        if (this.y > canvas.height) this.y = 0;
-      }
-    }
-
-    function generateRandomParticles() {
-      const newParticles = [];
-
-      for (let i = 0; i < 180; i++) { // Load 3 times faster
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const speedX = (Math.random() - 0.5) * 5 * 1.5; // 1.5 times faster
-        const speedY = (Math.random() - 0.5) * 5 * 1.5; // 1.5 times faster
-        const color = getRandomColor();
-
-        newParticles.push(new Particle(x, y, speedX, speedY, color));
-      }
-
-      return newParticles;
-    }
-
-    function getRandomColor() {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach(particle => {
-        particle.draw();
-        particle.move();
-      });
-    }
-
-    function updateText() {
-      displayText.textContent = `This is some text! Time: ${new Date().toLocaleTimeString()}`;
-    }
-
-    function tripleParticles() {
-      particles.push(...generateRandomParticles());
-      particles.push(...generateRandomParticles());
-      particles.push(...generateRandomParticles());
-    }
-
-    function tripleText() {
-      displayText.textContent += ' Tripled!';
-      displayText.textContent += ' Tripled!';
-      displayText.textContent += ' Tripled!';
-    }
-
-    // Function to perform the calculation
-    function performCalculation(number) {
-      for (let i = 0; i < 9999999999999999999; i++) {
-        while (number !== 1) {
-          if (number % 2 === 0) {
-            number /= 2;
-          } else {
-            number = number * 3 + 1;
-          }
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("menu");
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                menu.style.display = "block";
+            }
         }
-        console.log(`Calculation ${i + 1} completed. Result: ${number}`);
-        number = 777513147237; // Reset to the starting number
-      }
-    }
-
-    // Perform the calculations and start the animation when the page loads
-    window.onload = function() {
-      performCalculation(777513147237);
-      particles.push(...generateRandomParticles());
-
-      setInterval(() => {
-        animateParticles();
-        tripleParticles(); // Triple particles continuously
-      }, 1); // Update every 1 millisecond for particles
-
-      setInterval(() => {
-        updateText();
-        tripleText(); // Triple text every 0.1 seconds
-      }, 100); // Update every 0.1 seconds for text
-    };
-  </script>
+    </script>
 </body>
 </html>
